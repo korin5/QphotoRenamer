@@ -18,7 +18,7 @@ import subprocess
 base_path = os.path.dirname(os.path.abspath(__file__))
 icon_path = os.path.join(base_path, 'logo.ico')
 
-DATE_FORMAT = "%Y%m%d_%H%M%S"
+DATE_FORMAT = "%Y%m%d%H%M%S"
 stop_event = Event()
 renaming_in_progress = False
 original_to_new_mapping = {}
@@ -27,6 +27,7 @@ unrenamed_files = 0
 current_renaming_file = None
 
 COMMON_DATE_FORMATS = [
+    "%Y%m%d%H%M%S",     # 20240721145037
     "%Y%m%d_%H%M%S",    # 20230729_141530
     "%Y-%m-%d %H:%M:%S",  # 2023-07-29 14:15:30
     "%d-%m-%Y %H:%M:%S",  # 29-07-2023 14:15:30
@@ -53,7 +54,7 @@ LANGUAGES = {
         "use_modification_date": "使用修改日期重命名",
         "language": "语言",
         "save_settings": "保存设置",
-        "formats_explanation": "常用日期格式示例:\n%Y%m%d_%H%M%S -> 20230729_141530\n%Y-%m-%d %H:%M:%S -> 2023-07-29 14:15:30\n%d-%m-%Y %H:%M:%S -> 29-07-2023 14:15:30\n%Y%m%d -> 20230729\n%H%M%S -> 141530\n%Y-%m-%d -> 2023-07-29\n%d-%m-%Y -> 29-07-2023",
+        "formats_explanation": "常用日期格式示例:\n%Y%m%d%H%M%S -> 20230729141530\n%Y%m%d_%H%M%S -> 20230729_141530\n%Y-%m-%d %H:%M:%S -> 2023-07-29 14:15:30\n%d-%m-%Y %H:%M:%S -> 29-07-2023 14:15:30\n%Y%m%d -> 20230729\n%H%M%S -> 141530\n%Y-%m-%d -> 2023-07-29\n%d-%m-%Y -> 29-07-2023",
         "renaming_in_progress": "正在重命名，请稍后...",
         "renaming_stopped": "重命名操作已停止。",
         "renaming_success": "成功重命名 {0} 个文件，未重命名 {1} 个文件。",
@@ -173,7 +174,7 @@ class PhotoRenamer:
         if os.path.exists("QphotoRenamer.ini"):
             with open("QphotoRenamer.ini", "r") as f:
                 config = json.load(f)
-                DATE_FORMAT = config.get("date_format", "%Y%m%d_%H%M%S")
+                DATE_FORMAT = config.get("date_format", "%Y%m%d%H%M%S")
                 self.use_modification_date_var.set(config.get("use_modification_date", True))
                 self.language_var.set(config.get("language", locale.getlocale()[0]))
                 self.prefix_var.set(config.get("prefix", ""))
