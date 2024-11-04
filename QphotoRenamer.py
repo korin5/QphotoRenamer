@@ -281,11 +281,13 @@ class PhotoRenamer:
         return None
 
     def generate_unique_filename(self, directory, base_name, ext):
-        new_filename = f"{base_name}{ext}"
+        # new_filename = f"{base_name}{ext}"
+        new_filename = f"{base_name}"
         new_file_path = os.path.join(directory, new_filename)
         counter = 1
         while os.path.exists(new_file_path):
-            new_filename = f"{base_name}_{counter}{ext}"
+            # new_filename = f"{base_name}_{counter}{ext}"
+            new_filename = f"{base_name}_{counter}"
             new_file_path = os.path.join(directory, new_filename)
             counter += 1
         return new_file_path
